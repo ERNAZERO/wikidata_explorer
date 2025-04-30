@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Details für {{ label }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<a class='zuruck' href="{{ url_for('index') }}">← Zurück zur Suche</a>
+    <h1>Details für {{ label }}</h1>
+
+    {% if image_url %}
+        <div class="image-block">
+            <img src="{{ image_url }}" alt="Bild von {{ label }}">
+            <p class="image-caption">
+                {% if description %}
+            <p class="description-text">{{ description }}</p>
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
+
+    <div class="details-container">
+        {% for prop, values in properties.items() %}
+            <div class="detail-block">
+                <strong>{{ prop }}</strong>
+                <ul>
+                    {% for val in values %}
+                        <li>{{ val.replace('\\n', '<br>')|safe }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+{#    <a href="{{ url_for('index') }}">← Zurück zur Suche</a>#}
+</body>
+</html>

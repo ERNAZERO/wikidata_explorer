@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Wikidata Explorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Wikidata Explorer</h1>
+    <form method="post">
+        <input type="text" name="search" placeholder="Suchen" required>
+        <button type="submit">🔍</button>
+    </form>
+    {% if results %}
+        <h2>Ergebnisse:</h2>
+        <ul>
+            {% for item in results %}
+                <li>
+                    <strong>{{ item.label }}</strong> ({{ item.id }})<br>
+                    <p>{{ item.description }}</p>
+                    <a href="{{ url_for('details', qid=item.id) }}">
+                        Mehr Informationen
+                    </a>
+                </li>
+
+
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Jedes Wort öffnet ein ganzes Wissensnetz. Starten Sie jetzt Ihre Suche!</p>
+    {% endif %}
+</body>
+</html>
+
+
